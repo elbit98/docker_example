@@ -10,13 +10,7 @@ class UserRepository
     public function create($request)
     {
 
-        $user = new User;
-        $user->full_name = $request->full_name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->save();
-
-//        $user = User::create($data);
+        $user = User::create($request);
 
         return $user;
     }

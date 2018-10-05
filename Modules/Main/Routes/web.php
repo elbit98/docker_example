@@ -11,5 +11,10 @@
 |
 */
 
+use Modules\Projects\Http\Controllers\ProjectsController;
+
 Route::get('/', 'MainController@index');
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('home', [ProjectsController::class, 'index'])->name('home');
+});

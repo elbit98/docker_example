@@ -51,22 +51,13 @@ class RegisterController extends Controller
     }
 
 
-    public function register(Request $request)
+    public function register(RegistrationRequest $request)
     {
-        $this->validate($request, $this->rules());
-
-        event(new Registered($user = $this->create($request)));
+        event(new Registered($user = $this->create($request->all())));
 
         return response()->json(['success' => 'User register success']);
 
     }
 
 
-    /**
-     * @return array
-     */
-    protected function rules()
-    {
-        return (new RegistrationRequest())->rules();
-    }
 }

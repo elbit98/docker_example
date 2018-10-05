@@ -1,4 +1,3 @@
-
 @if (Auth::check())
     <header class="q-header">
         <div class="q-inner">
@@ -10,7 +9,7 @@
             </div>
             <div class="q-user">
                 <div class="q-user__name _cursor" style="padding-right: 7%">
-                    <span><strong>9999 $</strong></span>
+                    <span><strong>{{ Auth::user()->balance }} $</strong></span>
                 </div>
                 <div class="q-user__avatar">
                     <img src="{{ asset(Auth::user()->avatar) }}" alt="" class="q-user__avatar-img">
@@ -26,7 +25,7 @@
                                 <a href="{{ route('home') }}" class="q-main-submenu__link">Проекты</a>
                             </li>
                             <li class="q-main-submenu__item">
-                                <a href="#" class="q-main-submenu__link">Баланс</a>
+                                <a href="{{ route('balance') }}" class="q-main-submenu__link">Баланс</a>
                             </li>
                             <li class="q-main-submenu__item">
                                 <a href="{{ route('logout') }}" class="q-main-submenu__link">Выйти</a>
@@ -37,36 +36,6 @@
 
                 </div>
             </div>
-            {{--<ul class="q-main-menu">--}}
-                {{--<li class="q-main-menu__item _dropdown _show-992">--}}
-                    {{--<a href="#" class="q-main-menu__link">Мой профиль</a>--}}
-                    {{--<ul class="q-main-submenu">--}}
-                        {{--<li class="q-main-submenu__item">--}}
-                            {{--<a href="#" class="q-main-submenu__link">Профиль</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="q-main-submenu__item">--}}
-                            {{--<a href="#" class="q-main-submenu__link">Мои проекты</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="q-main-submenu__item">--}}
-                            {{--<a href="#" class="q-main-submenu__link">Выйти</a>--}}
-                        {{--</li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
-                {{--<li class="q-main-menu__item _dropdown">--}}
-                    {{--<a href="#" class="q-main-menu__link">Проекты</a>--}}
-                    {{--<ul class="q-main-submenu submenu-new-projekt">--}}
-                        {{--<li class="q-main-submenu__item">--}}
-                            {{--<a href="#" class="q-main-submenu__link">Проект 1</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="q-main-submenu__item">--}}
-                            {{--<a href="#" class="q-main-submenu__link">Проект 2</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="q-main-submenu__item">--}}
-                            {{--<a href="#" class="q-main-submenu__link">Проект 3</a>--}}
-                        {{--</li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
-            {{--</ul>--}}
         </div>
     </header>
 @else

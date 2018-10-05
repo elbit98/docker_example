@@ -23,6 +23,10 @@ class UsersController extends MainController
         return view('users::index');
     }
 
+    public function balance()
+    {
+        return view('users::balance');
+    }
 
     public function profile(Request $request)
     {
@@ -39,8 +43,8 @@ class UsersController extends MainController
 
         if ($request->get('type_edit') == 'full_name')
             $this->repo->editFullName($user, $request->get('full_name'));
-        if ($request->get('type_edit') == 'avatar')
-            $this->repo->editFullName($user, $request->get('full_name'));
+//        if ($request->get('type_edit') == 'avatar')
+//            $this->repo->editFullName($user, $request->get('full_name'));
 
 
     }

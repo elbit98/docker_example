@@ -4,7 +4,7 @@ namespace Modules\Users\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
+use Modules\Projects\Entities\Project;
 use Modules\Users\Notifications\ResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 
@@ -45,7 +45,6 @@ class User extends Model
         $this->attributes['password'] = Hash::needsRehash($value) ? Hash::make($value) : $value;
     }
 
-
     //Send password reset notification
     public function sendPasswordResetNotification($token)
     {
@@ -54,7 +53,7 @@ class User extends Model
 
     public function projects()
     {
-        return $this->hasMany('Modules\Projects\Entities\Project');
+        return $this->hasMany(Project::class);
     }
 
 }

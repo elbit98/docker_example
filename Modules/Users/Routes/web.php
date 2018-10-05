@@ -11,6 +11,7 @@
 |
 */
 
+use Modules\Projects\Http\Controllers\ProjectsController;
 use Modules\Users\Http\Controllers\Auth\ForgotPasswordController;
 use Modules\Users\Http\Controllers\Auth\LoginController;
 use Modules\Users\Http\Controllers\Auth\RegisterController;
@@ -29,13 +30,16 @@ Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEm
 
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('home', 'HomeController@index')->name('home');
     Route::get('profile', [UsersController::class, 'profile'])->name('profile');
 
+    Route::get('balance', [UsersController::class, 'balance'])->name('balance');
+
     Route::post('updateProfile', [UsersController::class, 'updateProfile'])->name('updateProfile');
-
-
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::get('payment', [UsersController::class, 'payment'])->name('payment');
+    Route::get('payment/error', [UsersController::class, 'paymentError'])->name('payment.error');
+    Route::get('payment/success', [UsersController::class, 'paymentSuccess'])->name('payment.error');
 });
 
 

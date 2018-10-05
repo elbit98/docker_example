@@ -31,7 +31,7 @@
                                     <div class="q-form__row _not-valid">
                                         <label for="autorizationEmail" class="q-form__label">Ваш email:</label>
                                         <div class="q-form__input--wrapper">
-                                            <input id="autorizationEmail" type="text" value="dedede" placeholder="" class="q-form__input q-form-white"/>
+                                            <input id="autorizationEmail" type="text" placeholder="" class="q-form__input q-form-white"/>
 
 
                                         </div>
@@ -43,7 +43,7 @@
                                                 <span class="q-form__label-link--text"><a href="{{ route('fogot-password') }}">Забыли пароль?</a></span>
                                             </span>
                                         <div class="q-form__input--wrapper">
-                                            <input id="autorizationPassword" type="password" value="••••••••••••••" placeholder="" class="q-form__input q-form-white"/>
+                                            <input id="autorizationPassword" type="password" placeholder="" class="q-form__input q-form-white"/>
 
                                         </div>
 

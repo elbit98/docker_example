@@ -4,8 +4,9 @@ namespace Modules\Projects\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Projects\Entities\Project;
 
-class ProjectsDatabaseSeeder extends Seeder
+class ProjectsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,6 +17,7 @@ class ProjectsDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-         $this->call(ProjectsSeeder::class);
+        factory(Project::class, 10)->create([]);
+
     }
 }
