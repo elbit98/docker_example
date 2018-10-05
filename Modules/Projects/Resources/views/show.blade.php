@@ -64,59 +64,89 @@
                 <div class="q-tasks-list">
                     <div class="g-column">
                         <span class="text-column">Новая:</span>
-                        <div class="g-task g-task-second">
-                            <a class="open-g-task js-show-q-view-task-user-popup" href="#">
-                                <div class="g-task-header"><div class="g-task-header-name">Я поручил(а):</div>
-                                    Купить дочери зеленого слона<div class="g-task-footer-urgency g-medium-urgency"></div></div>
-                            </a>
-                            <div class="g-task-footer">
-                                <div class="g-task-footer-date">
-                                    12.10 - <span class="g-task-footer-date-overdue">12.11</span>
+                        @foreach ($taskData[0] as $task)
+                            <div class="g-task g-task-second">
+                                <a class="open-g-task js-show-q-view-task-user-popup" href="#">
+                                    <div class="g-task-header">
+                                        {{ $task->title }}
+                                        <div class="g-task-footer-urgency g-medium-urgency"></div>
+                                    </div>
+                                </a>
+                                <div class="g-task-footer">
+                                    <div class="g-task-footer-date">
+                                        {{ $task->started_at }} - <span
+                                                class="g-task-footer-date-overdue">{{ $task->ended_at }}</span>
+                                    </div>
+
+                                    <a class="g-delete-icon js-show-compare-popup" href="#" title="Удалить задачу"></a>
                                 </div>
-
-                                <a class="g-delete-icon js-show-compare-popup" href="#" title="Удалить задачу"></a>
-                                <a class="g-arrow-right-icon" href="#"  title="Изменить статус"></a>
                             </div>
-                        </div>
-
+                        @endforeach
+                        @if (count($taskData[0]) == 0)
+                            <div class="g-task g-task-second">
+                                <div class="g-task-header">
+                                    Задачи отсутствуют :)
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     <div class="g-column">
                         <span class="text-column">В работе:</span>
-                        <div class="g-task">
+                        @foreach ($taskData[1] as $task)
+                            <div class="g-task">
 
-                            <a class="open-g-task" href="#">
-                                <div class="g-task-header"><div class="g-task-header-name">Я в копии:</div>
-                                    Разработать механизм описания неописуемых явлений мира квантовой физики</div>
-                            </a>
-                            <div class="g-task-footer">
-                                <div class="g-task-footer-date">
-                                    12.11 - <span class="g-task-footer-date-normal">15.11</span>
+                                <a class="open-g-task" href="#">
+                                    <div class="g-task-header">
+                                        {{ $task->title }}</div>
+                                </a>
+                                <div class="g-task-footer">
+                                    <div class="g-task-footer-date">
+                                        {{ $task->started_at }} - <span
+                                                class="g-task-footer-date-normal">{{ $task->ended_at }}</span>
+                                    </div>
+                                    <i class="g-newmail-icon Blink"></i>
+
+
                                 </div>
-                                <i class="g-newmail-icon Blink"></i>
-
 
                             </div>
-
-                        </div>
-
+                        @endforeach
+                        @if (count($taskData[1]) == 0)
+                            <div class="g-task g-task-second">
+                                <div class="g-task-header">
+                                    Задачи отсутствуют :)
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     <div class="g-column">
                         <span class="text-column">Выполнено:</span>
-                        <div class="g-task g-task-ok">
+                        @foreach ($taskData[2] as $task)
+                            <div class="g-task g-task-ok">
 
-                            <a class="open-g-task" href="#">
-                                <div class="g-task-header"><div class="g-task-header-name">Мне поручил Антон Иванович Иванов:</div>
-                                    Заказать печать визиток<div class="g-task-footer-urgency"></div></div>
-                            </a>
-                            <div class="g-task-footer">
-                                <div class="g-task-footer-date">
-                                    12.11 - <span class="g-task-footer-date-normal">15.11</span>
+                                <a class="open-g-task" href="#">
+                                    <div class="g-task-header">
+                                        {{ $task->title }}
+                                        <div class="g-task-footer-urgency"></div>
+                                    </div>
+                                </a>
+                                <div class="g-task-footer">
+                                    <div class="g-task-footer-date">
+                                        {{ $task->started_at }} - <span
+                                                class="g-task-footer-date-normal">{{ $task->ended_at }}</span>
+                                    </div>
+
                                 </div>
 
-                                <a class="g-arrow-left-icon" href="#" title="Изменить статус"></a>
                             </div>
-
-                        </div>
+                        @endforeach
+                        @if (count($taskData[2]) == 0)
+                            <div class="g-task g-task-second">
+                                <div class="g-task-header">
+                                    Задачи отсутствуют :)
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -135,11 +165,22 @@
             <h3 class="q-popup__title">Добавить задачу</h3>
             <form class="q-form">
 
+                {!! Form::open(['method'=>'POST', 'route' => 'projects.store'], ['class' => 'q-form g-no-projects']) !!}
+                <div class="q-form__row">
+                    <label for="themeName" class="q-form__label">Название проекта:</label>
+                    <div class="q-form__input--wrapper">
+                        {!! Form::text('name', 'Name', ['class' => 'q-form__input q-form-white']) !!}
+                    </div>
+                </div>
+
+
 
                 <div class="q-form__row">
                     <label for="profileTownClient" class="q-form__label _with-link">Срочность:</label>
 
                     <div class="q-form__input--wrapper">
+                        {!! Form::select('size', ['0' => 'Срочно', '1' => 'Терпимо', '2' => 'Не к спешке']) !!}
+
                         <select id="profileTownClient" class="q-form__select js-q-select">
                             <option>Срочно</option>
                             <option></option>
@@ -148,41 +189,6 @@
 
                 </div>
 
-
-                <div class="q-form__row">
-
-                    <label for="profileActivities" class="q-form__label">Исполнители:</label>
-                    <div class="q-form__input--wrapper">
-                        <select id="profileActivities" multiple="multiple" name="profileActivities" class="q-form__select js-q-select-multiple">
-                            <option value="Торговля" selected="selected">Иван Иванов</option>
-                            <option value="Выставки">Антон Петров</option>
-                            <option value="Ярмарки">Петя Сидоров</option>
-                            <option value="Продукты питания">Маша Пронина</option>
-                        </select>
-                    </div>
-
-
-                    <div class="q-profile__subcol _no-r-p">
-
-                    </div>
-                </div>
-                <div class="q-form__row">
-
-                    <label for="profileActivities" class="q-form__label">Поставить в копию:</label>
-                    <div class="q-form__input--wrapper">
-                        <select id="profileActivities" multiple="multiple" name="profileActivities" class="q-form__select js-q-select-multiple">
-                            <option value="Торговля" selected="selected">Иван Иванов</option>
-                            <option value="Выставки">Антон Петров</option>
-                            <option value="Ярмарки">Петя Сидоров</option>
-                            <option value="Продукты питания">Маша Пронина</option>
-                        </select>
-                    </div>
-
-
-                    <div class="q-profile__subcol _no-r-p">
-
-                    </div>
-                </div>
 
                 <div class="q-form__row">
                     <label class="q-form__label">Период выполнения:</label>
@@ -208,45 +214,14 @@
                 </div>
 
 
-
                 <div class="q-form__row">
                     <label for="textMessage" class="q-form__label">Описание задачи:</label>
                     <textarea id="textMessage" class="q-form__textarea"></textarea>
                 </div>
-
-
-
-
-
-
                 <div class="q-form__row _submit">
-                    <button class="q-button _red">Добавить</button>
-                    <span class="q-upload-btn _cursor">
-                            <i class="q-icon q-icon-upload"></i>
-                            <span class="_dashed">Прикрепить</span>
-                           </span>
-                    <div class="q-buttons__list q-buttons__submit--list list-files-new-task">
-                                        <span class="q-button _xs _light-gray _uppercase list-files-new-task-margin-top">1.jpg
-                                            <i class="q-icon q-icon-close-sm"></i>
-                                        </span>
-                        <span class="q-button _xs _light-gray _uppercase">sfhdkjf.png
-                                            <i class="q-icon q-icon-close-sm"></i>
-                                        </span>
-                        <span class="q-button _xs _light-gray _uppercase">12.jpg
-                                            <i class="q-icon q-icon-close-sm"></i>
-                                        </span>
-                        <span class="q-button _xs _light-gray _uppercase">file_new.pdf
-                                            <i class="q-icon q-icon-close-sm"></i>
-                                        </span>
-                        <span class="q-button _xs _light-gray _uppercase">tablica_good.xlsx
-                                            <i class="q-icon q-icon-close-sm"></i>
-                                        </span>
-
-
-
-                    </div>
-
+                    {!! Form::button('Добавить', ['type' => 'submit', 'class' => 'q-button _red']) !!}
                 </div>
+                {!! Form::close() !!}
 
             </form>
 
@@ -282,7 +257,8 @@
                 <div class="q-form__row _submit">
                     <button class="q-button _red">Создать проект</button>
                     <button class="q-button _white">Загрузить email списком</button>
-                    <a href="/entities_example.csv" target="_blank" class="_right-link _like-dashed-link">образец csv</a>
+                    <a href="/entities_example.csv" target="_blank" class="_right-link _like-dashed-link">образец
+                        csv</a>
                     <input type="file" id="uploadFile_input" hidden="hidden" accept=".csv">
                     <div class="preloader _inline" style="display: none;"></div> <!----></div>
             </form>
@@ -292,12 +268,11 @@
     <!-- end of create-project-popup -->
 
 
-
-
     <!-- view-task-admin-popup -->
     <div class="q-popup js-q-view-task-admin-popup">
         <div class="q-popup__holder js-q-popup-holder">
-            <h3 class="q-popup__title">Редактировать задачу: Ехали медведи на велосипеде, а за ними кот задом наперед</h3>
+            <h3 class="q-popup__title">Редактировать задачу: Ехали медведи на велосипеде, а за ними кот задом
+                наперед</h3>
             <form class="q-form">
 
 
@@ -319,7 +294,8 @@
 
                     <label for="profileActivities" class="q-form__label">Исполнители:</label>
                     <div class="q-form__input--wrapper">
-                        <select id="profileActivities" multiple="multiple" name="profileActivities" class="q-form__select js-q-select-multiple">
+                        <select id="profileActivities" multiple="multiple" name="profileActivities"
+                                class="q-form__select js-q-select-multiple">
                             <option value="Торговля" selected="selected">Иван Иванов</option>
                             <option value="Выставки">Антон Петров</option>
                             <option value="Ярмарки">Петя Сидоров</option>
@@ -337,7 +313,8 @@
 
                     <label for="profileActivities" class="q-form__label">Поставить в копию:</label>
                     <div class="q-form__input--wrapper">
-                        <select id="profileActivities" multiple="multiple" name="profileActivities" class="q-form__select js-q-select-multiple">
+                        <select id="profileActivities" multiple="multiple" name="profileActivities"
+                                class="q-form__select js-q-select-multiple">
                             <option value="Торговля" selected="selected">Иван Иванов</option>
                             <option value="Выставки">Антон Петров</option>
                             <option value="Ярмарки">Петя Сидоров</option>
@@ -376,9 +353,15 @@
 
                 <div class="q-form__row">
                     <label for="textMessage" class="q-form__label">Описание задачи:</label>
-                    Ранее первый зампрокурора области обратился в суд с иском о признании недействительным решения Николаевского областного совета от 2012 года, подтвердившего закон «Об основах языковой политики». Зампрокурора обратился в суд, так как областной совет не предпринимал мер к приведению регионального законодательства к общегосударственному.
+                    Ранее первый зампрокурора области обратился в суд с иском о признании недействительным решения
+                    Николаевского областного совета от 2012 года, подтвердившего закон «Об основах языковой политики».
+                    Зампрокурора обратился в суд, так как областной совет не предпринимал мер к приведению регионального
+                    законодательства к общегосударственному.
 
-                    В феврале Конституционный суд Украины признал недействительным принятый при президенте Викторе Януковиче закон «Об основах языковой политики». Статус регионального языка присваивался в том случае, если он является родным для 10% населения региона. В восточных областях Украины благодаря этому в документообороте использовали русский язык, а в западных — румынский и венгерский.
+                    В феврале Конституционный суд Украины признал недействительным принятый при президенте Викторе
+                    Януковиче закон «Об основах языковой политики». Статус регионального языка присваивался в том
+                    случае, если он является родным для 10% населения региона. В восточных областях Украины благодаря
+                    этому в документообороте использовали русский язык, а в западных — румынский и венгерский.
 
                     <div class="q-form__input--wrapper g-margin-top-for-element">
                         <span class="g-lite-color-text">Прикреплённые файлы:
@@ -390,8 +373,6 @@
                 </div>
 
 
-
-
                 <div class="q-table__row _chat-row js-chat-row _opened">
                     <div class="q-table__table-row">
                         <div class="q-chat">
@@ -401,8 +382,11 @@
                                         <img src="img/avatar.png" alt="" class="q-user__avatar-img">
                                     </div>
                                     <div class="q-chat__item--info">
-                                        <p class="q-chat__item--text">Рядом с каждой темой выводятся дата последнего сообщения и ссылка «в архив». У каждой стороны переписки выводится аватарка (предоставлю дефолтные). Рядом с каждой темой выводятся дата последнего сообщения и ссылка «в архив».</p>
-                                        <p class="q-chat__item--date">Антон Иванович Иванов<br />07.04.2018, 22:50:07</p>
+                                        <p class="q-chat__item--text">Рядом с каждой темой выводятся дата последнего
+                                            сообщения и ссылка «в архив». У каждой стороны переписки выводится аватарка
+                                            (предоставлю дефолтные). Рядом с каждой темой выводятся дата последнего
+                                            сообщения и ссылка «в архив».</p>
+                                        <p class="q-chat__item--date">Антон Иванович Иванов<br/>07.04.2018, 22:50:07</p>
                                     </div>
                                 </div>
 
@@ -411,8 +395,11 @@
                                         <img src="img/avatar.png" alt="" class="q-user__avatar-img">
                                     </div>
                                     <div class="q-chat__item--info">
-                                        <p class="q-chat__item--text">Рядом с каждой темой выводятся дата последнего сообщения и ссылка «в архив». У каждой стороны переписки выводится аватарка (предоставлю дефолтные). Рядом с каждой темой выводятся дата последнего сообщения и ссылка «в архив».</p>
-                                        <p class="q-chat__item--date">Антон Иванович Иванов<br />07.04.2018, 22:50:07</p>
+                                        <p class="q-chat__item--text">Рядом с каждой темой выводятся дата последнего
+                                            сообщения и ссылка «в архив». У каждой стороны переписки выводится аватарка
+                                            (предоставлю дефолтные). Рядом с каждой темой выводятся дата последнего
+                                            сообщения и ссылка «в архив».</p>
+                                        <p class="q-chat__item--date">Антон Иванович Иванов<br/>07.04.2018, 22:50:07</p>
                                     </div>
                                 </div>
 
@@ -422,7 +409,7 @@
                                     </div>
                                     <div class="q-chat__item--info">
                                         <p class="q-chat__item--text">Очень маленький текст</p>
-                                        <p class="q-chat__item--date">Антон Иванович Иванов<br />07.04.2018, 22:50:07</p>
+                                        <p class="q-chat__item--date">Антон Иванович Иванов<br/>07.04.2018, 22:50:07</p>
                                     </div>
                                 </div>
                                 <div class="q-chat__item">
@@ -430,8 +417,11 @@
                                         <img src="img/avatar.png" alt="" class="q-user__avatar-img">
                                     </div>
                                     <div class="q-chat__item--info">
-                                        <p class="q-chat__item--text">Рядом с каждой темой выводятся дата последнего сообщения и ссылка «в архив». У каждой стороны переписки выводится аватарка (предоставлю дефолтные). Рядом с каждой темой выводятся дата последнего сообщения и ссылка «в архив».</p>
-                                        <p class="q-chat__item--date">Антон Иванович Иванов<br />07.04.2018, 22:50:07</p>
+                                        <p class="q-chat__item--text">Рядом с каждой темой выводятся дата последнего
+                                            сообщения и ссылка «в архив». У каждой стороны переписки выводится аватарка
+                                            (предоставлю дефолтные). Рядом с каждой темой выводятся дата последнего
+                                            сообщения и ссылка «в архив».</p>
+                                        <p class="q-chat__item--date">Антон Иванович Иванов<br/>07.04.2018, 22:50:07</p>
                                     </div>
                                 </div>
                             </div>
@@ -471,7 +461,6 @@
                                         </span>
 
 
-
                     </div>
 
                 </div>
@@ -487,7 +476,8 @@
     <!-- view-task-user-popup -->
     <div class="q-popup js-q-view-task-user-popup">
         <div class="q-popup__holder js-q-popup-holder">
-            <h3 class="q-popup__title">Ехали медведи на велосипеде, а за ними кот задом наперед! Раз два три четыре пять вышел</h3>
+            <h3 class="q-popup__title">Ехали медведи на велосипеде, а за ними кот задом наперед! Раз два три четыре пять
+                вышел</h3>
             <form class="q-form">
 
                 <div class="q-form__row">
@@ -498,7 +488,8 @@
 
                 <div class="q-form__row">
                     <span class="g-label-for-user-view-task">Срочность:</span>
-                    <div class="g-task-detail-urgency"></div><span class="g-lite-color-text">Надо было вчера</span>
+                    <div class="g-task-detail-urgency"></div>
+                    <span class="g-lite-color-text">Надо было вчера</span>
 
 
                 </div>
@@ -546,13 +537,17 @@
                 </div>
 
 
-
-
                 <div class="q-form__row">
                     <label for="textMessage" class="q-form__label">Описание задачи:</label>
-                    Ранее первый зампрокурора области обратился в суд с иском о признании недействительным решения Николаевского областного совета от 2012 года, подтвердившего закон «Об основах языковой политики». Зампрокурора обратился в суд, так как областной совет не предпринимал мер к приведению регионального законодательства к общегосударственному.
+                    Ранее первый зампрокурора области обратился в суд с иском о признании недействительным решения
+                    Николаевского областного совета от 2012 года, подтвердившего закон «Об основах языковой политики».
+                    Зампрокурора обратился в суд, так как областной совет не предпринимал мер к приведению регионального
+                    законодательства к общегосударственному.
 
-                    В феврале Конституционный суд Украины признал недействительным принятый при президенте Викторе Януковиче закон «Об основах языковой политики». Статус регионального языка присваивался в том случае, если он является родным для 10% населения региона. В восточных областях Украины благодаря этому в документообороте использовали русский язык, а в западных — румынский и венгерский.
+                    В феврале Конституционный суд Украины признал недействительным принятый при президенте Викторе
+                    Януковиче закон «Об основах языковой политики». Статус регионального языка присваивался в том
+                    случае, если он является родным для 10% населения региона. В восточных областях Украины благодаря
+                    этому в документообороте использовали русский язык, а в западных — румынский и венгерский.
 
                     <div class="q-form__input--wrapper g-margin-top-for-element">
                         <span class="g-lite-color-text">Прикреплённые файлы:
@@ -564,8 +559,6 @@
                 </div>
 
 
-
-
                 <div class="q-table__row _chat-row js-chat-row _opened">
                     <div class="q-table__table-row">
                         <div class="q-chat">
@@ -575,8 +568,11 @@
                                         <img src="img/avatar.png" alt="" class="q-user__avatar-img">
                                     </div>
                                     <div class="q-chat__item--info">
-                                        <p class="q-chat__item--text">Рядом с каждой темой выводятся дата последнего сообщения и ссылка «в архив». У каждой стороны переписки выводится аватарка (предоставлю дефолтные). Рядом с каждой темой выводятся дата последнего сообщения и ссылка «в архив».</p>
-                                        <p class="q-chat__item--date">Антон Иванович Иванов<br />07.04.2018, 22:50:07</p>
+                                        <p class="q-chat__item--text">Рядом с каждой темой выводятся дата последнего
+                                            сообщения и ссылка «в архив». У каждой стороны переписки выводится аватарка
+                                            (предоставлю дефолтные). Рядом с каждой темой выводятся дата последнего
+                                            сообщения и ссылка «в архив».</p>
+                                        <p class="q-chat__item--date">Антон Иванович Иванов<br/>07.04.2018, 22:50:07</p>
                                     </div>
                                 </div>
 
@@ -585,8 +581,11 @@
                                         <img src="img/avatar.png" alt="" class="q-user__avatar-img">
                                     </div>
                                     <div class="q-chat__item--info">
-                                        <p class="q-chat__item--text">Рядом с каждой темой выводятся дата последнего сообщения и ссылка «в архив». У каждой стороны переписки выводится аватарка (предоставлю дефолтные). Рядом с каждой темой выводятся дата последнего сообщения и ссылка «в архив».</p>
-                                        <p class="q-chat__item--date">Антон Иванович Иванов<br />07.04.2018, 22:50:07</p>
+                                        <p class="q-chat__item--text">Рядом с каждой темой выводятся дата последнего
+                                            сообщения и ссылка «в архив». У каждой стороны переписки выводится аватарка
+                                            (предоставлю дефолтные). Рядом с каждой темой выводятся дата последнего
+                                            сообщения и ссылка «в архив».</p>
+                                        <p class="q-chat__item--date">Антон Иванович Иванов<br/>07.04.2018, 22:50:07</p>
                                     </div>
                                 </div>
 
@@ -596,7 +595,7 @@
                                     </div>
                                     <div class="q-chat__item--info">
                                         <p class="q-chat__item--text">Очень маленький текст</p>
-                                        <p class="q-chat__item--date">Антон Иванович Иванов<br />07.04.2018, 22:50:07</p>
+                                        <p class="q-chat__item--date">Антон Иванович Иванов<br/>07.04.2018, 22:50:07</p>
                                     </div>
                                 </div>
                                 <div class="q-chat__item">
@@ -604,8 +603,11 @@
                                         <img src="img/avatar.png" alt="" class="q-user__avatar-img">
                                     </div>
                                     <div class="q-chat__item--info">
-                                        <p class="q-chat__item--text">Рядом с каждой темой выводятся дата последнего сообщения и ссылка «в архив». У каждой стороны переписки выводится аватарка (предоставлю дефолтные). Рядом с каждой темой выводятся дата последнего сообщения и ссылка «в архив».</p>
-                                        <p class="q-chat__item--date">Антон Иванович Иванов<br />07.04.2018, 22:50:07</p>
+                                        <p class="q-chat__item--text">Рядом с каждой темой выводятся дата последнего
+                                            сообщения и ссылка «в архив». У каждой стороны переписки выводится аватарка
+                                            (предоставлю дефолтные). Рядом с каждой темой выводятся дата последнего
+                                            сообщения и ссылка «в архив».</p>
+                                        <p class="q-chat__item--date">Антон Иванович Иванов<br/>07.04.2018, 22:50:07</p>
                                     </div>
                                 </div>
                             </div>
@@ -643,7 +645,6 @@
                         <span class="q-button _xs _light-gray _uppercase">tablica_good.xlsx
                                             <i class="q-icon q-icon-close-sm"></i>
                                         </span>
-
 
 
                     </div>
@@ -710,7 +711,8 @@
 
                     <label for="profileActivities" class="q-form__label">Исполнители:</label>
                     <div class="q-form__input--wrapper">
-                        <select id="profileActivities" multiple="multiple" name="profileActivities" class="q-form__select js-q-select-multiple">
+                        <select id="profileActivities" multiple="multiple" name="profileActivities"
+                                class="q-form__select js-q-select-multiple">
                             <option value="Торговля" selected="selected">Вася</option>
                             <option value="Выставки">Антон Петров</option>
                             <option value="Ярмарки">Петя Сидоров</option>
@@ -727,7 +729,8 @@
 
                     <label for="profileActivities" class="q-form__label">Авторы:</label>
                     <div class="q-form__input--wrapper">
-                        <select id="profileActivities" multiple="multiple" name="profileActivities" class="q-form__select js-q-select-multiple">
+                        <select id="profileActivities" multiple="multiple" name="profileActivities"
+                                class="q-form__select js-q-select-multiple">
                             <option value="Торговля" selected="selected">Петя</option>
                             <option value="Выставки">Антон Петров</option>
                             <option value="Ярмарки">Петя Сидоров</option>
@@ -752,7 +755,6 @@
                     </div>
 
                 </div>
-
 
 
                 <div class="q-form__row _submit">

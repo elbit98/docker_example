@@ -20,8 +20,8 @@ class CreateTasksTable extends Migration
             $table->string('description');
             $table->unsignedTinyInteger('status')->default(0);
             $table->unsignedTinyInteger('urgency')->default(0);
-            $table->timestamp('started_at')->nullable();
-            $table->timestamp('ended_at')->nullable();
+            $table->string('started_at')->nullable();
+            $table->string('ended_at')->nullable();
 
             $table->timestamps();
         });

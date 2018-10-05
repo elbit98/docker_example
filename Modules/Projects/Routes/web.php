@@ -13,5 +13,7 @@
 Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('projects', ProjectsController::class);
+
+        Route::resource('tasks', TaskController::class);
 });
 

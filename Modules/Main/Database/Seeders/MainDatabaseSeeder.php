@@ -4,6 +4,8 @@ namespace Modules\Main\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Projects\Database\Seeders\ProjectsSeeder;
+use Modules\Users\Database\Seeders\UsersSeeder;
 
 class MainDatabaseSeeder extends Seeder
 {
@@ -16,6 +18,8 @@ class MainDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(UsersSeeder::class);
+        $this->call(ProjectsSeeder::class);
+
     }
 }

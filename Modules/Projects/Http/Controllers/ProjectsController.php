@@ -61,9 +61,10 @@ class ProjectsController extends Controller
     public function show($id)
     {
 
-        $project = Project::find($id);
+        $taskData = $this->repo->taskSort(Project::find($id));
 
-        return view('projects::show', compact('project'));
+
+        return view('projects::show', compact('project', 'taskData'));
     }
 
     /**
