@@ -18,5 +18,11 @@ class UsersSeeder extends Seeder
         Model::unguard();
 
         factory(User::class, 5)->create([]);
+
+        factory(User::class, 1)->create([
+            'email' => 'test@site.com',
+            'password' => 'qwertyu',
+        ]);
+
     }
 }

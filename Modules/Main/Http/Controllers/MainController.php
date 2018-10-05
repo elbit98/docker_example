@@ -8,6 +8,14 @@ use Illuminate\Routing\Controller;
 
 class MainController extends Controller
 {
+
+    /**
+     * MainController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
     /**
      * Display a listing of the resource.
      * @return Response

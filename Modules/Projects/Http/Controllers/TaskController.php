@@ -5,25 +5,30 @@ namespace Modules\Projects\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Projects\Entities\Project;
+use Modules\Projects\Http\Requests\TaskRequest;
+use Modules\Projects\Repositories\TasksRepository;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function index()
+
+    protected $repo;
+
+    public function __construct(TasksRepository $repo)
     {
-        return view('projects::index');
+        $this->repo = $repo;
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
+    public function create(TaskRequest $request)
     {
-        return view('projects::create');
+        $project = Project::find($request->project_id);
+        $project->tasks()->create($request);
+
+        return Redirect::to('projects/' . $request->project_id);
     }
 
     /**
@@ -31,8 +36,14 @@ class TaskController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
+
+        $project = Project::find($request->project_id);
+        $project->tasks()->create($request);
+
+        return Redirect::to('projects/' . $request->project_id);
+
     }
 
     /**

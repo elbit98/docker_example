@@ -47,6 +47,10 @@ class ProjectsController extends Controller
     }
 
 
+    /**
+     * @param ProjectRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(ProjectRequest $request)
     {
 
@@ -58,11 +62,16 @@ class ProjectsController extends Controller
     }
 
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($id)
     {
 
-        $taskData = $this->repo->taskSort(Project::find($id));
+        $project = Project::find($id);
 
+        $taskData = $this->repo->taskSort($project);
 
         return view('projects::show', compact('project', 'taskData'));
     }
@@ -98,18 +107,15 @@ class ProjectsController extends Controller
     }
 
 
+    /**
+     * @param Project $project
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function destroy(Project $project)
     {
         $project->delete();
         return redirect('projects')->with('success', 'Information has been  deleted');
     }
-//    public function destroy(Bunch $bunch, User $user)
-//    {
-//        if ($user->can('delete', $bunch)) {
-//            $bunch->delete();
-//            return redirect()->route('bunch.index')->withMessage('Bunch DELETED');
-//        }else{
-//            abort(404);
-//        }
-//    }
+
 }

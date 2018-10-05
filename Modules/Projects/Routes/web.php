@@ -14,6 +14,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('projects', ProjectsController::class);
 
-        Route::resource('tasks', TaskController::class);
+//        Route::resource('tasks', TaskController::class);
+    Route::post('task/create', [TaskController::class, 'create'])->name('task.create');
 });
 

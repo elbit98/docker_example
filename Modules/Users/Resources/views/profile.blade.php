@@ -11,21 +11,21 @@
         @include('users::layouts.header')
         <!-- end header -->
 
-            <style>
-                #UserPhoto {
-                    width: 200px;
-                    height: 200px;
-                    background-size: contain;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    margin: 0px 0px 20px;
-                    cursor: pointer;
-                }
+            {{--<style>--}}
+                {{--#UserPhoto {--}}
+                    {{--width: 200px;--}}
+                    {{--height: 200px;--}}
+                    {{--background-size: contain;--}}
+                    {{--background-position: center;--}}
+                    {{--background-repeat: no-repeat;--}}
+                    {{--margin: 0px 0px 20px;--}}
+                    {{--cursor: pointer;--}}
+                {{--}--}}
 
-                input[type="file"]#UploadPhoto {
-                    display: none;
-                }
-            </style>
+                {{--input[type="file"]#UploadPhoto {--}}
+                    {{--display: none;--}}
+                {{--}--}}
+            {{--</style>--}}
 
             <!-- content -->
             <div class="q-content">
@@ -45,31 +45,11 @@
                                     <div class="q-user__avatar _large _edit q-user-white-border">
                                         <img id="UserPhoto" src="{{ asset($user->avatar) }}" alt="" class="q-user__avatar-img">
 
-                                        <input type="file" id="UploadPhoto" class="form-control">
-                                        <input type="hidden" name="Photo" class="form-control">
+                                        {{--<input type="file" id="UploadPhoto" class="form-control">--}}
+                                        {{--<input type="hidden" name="Photo" class="form-control">--}}
 
                                         <span class="q-user__avatar--edit-btn"></span>
                                         <span class="q-user__avatar--edit-text">Изменить <br/> аватар</span>
-                                    </div>
-
-
-                                    {{--<div class="form-group">--}}
-                                    {{--<div id="UserPhoto" style="background-image: url(@if(Auth::user()->photo != NULL){{url(Auth::user()->photo)}}@else{{url('/img/no-avatar.png')}}@endif);">--}}
-                                    {{--</div>--}}
-                                    {{--<input type="file" id="UploadPhoto" class="form-control">--}}
-                                    {{--<input type="hidden" name="Photo" class="form-control">--}}
-                                    {{--</div>--}}
-
-                                </div>
-                                <div class="q-profile__info--container">
-                                    <div class="q-profile__info">
-                                        <div class="q-profile__info--text">
-                                            <p>Доступ к Вашим проектам для 1000 участников (10 мест свободно) активен до
-                                                12.12.2012</p>
-
-                                        </div>
-                                        <a href="#" class="_like-dashed-link js-show-q-subscriptions-popup">Продлить или
-                                            добавить участников</a>
                                     </div>
 
                                 </div>

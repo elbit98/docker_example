@@ -165,26 +165,21 @@
             <h3 class="q-popup__title">Добавить задачу</h3>
             <form class="q-form">
 
-                {!! Form::open(['method'=>'POST', 'route' => 'projects.store'], ['class' => 'q-form g-no-projects']) !!}
-                <div class="q-form__row">
-                    <label for="themeName" class="q-form__label">Название проекта:</label>
-                    <div class="q-form__input--wrapper">
-                        {!! Form::text('name', 'Name', ['class' => 'q-form__input q-form-white']) !!}
-                    </div>
-                </div>
-
-
+                {!! Form::open(['method'=>'POST', 'route' => 'task.create'], ['class' => 'q-form g-no-projects']) !!}
+                {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
+                {!! Form::hidden('_token', csrf_token()) !!}
+                {!! Form::hidden('project_id', $project->id) !!}
 
                 <div class="q-form__row">
                     <label for="profileTownClient" class="q-form__label _with-link">Срочность:</label>
 
                     <div class="q-form__input--wrapper">
-                        {!! Form::select('size', ['0' => 'Срочно', '1' => 'Терпимо', '2' => 'Не к спешке']) !!}
+                        {!! Form::select('size', ['0' => 'Срочно', '1' => 'Терпимо', '2' => 'Не к спешке'], ['class' => 'q-form__select js-q-select']) !!}
 
-                        <select id="profileTownClient" class="q-form__select js-q-select">
-                            <option>Срочно</option>
-                            <option></option>
-                        </select>
+                        {{--<select id="profileTownClient" class="q-form__select js-q-select">--}}
+                            {{--<option>Срочно</option>--}}
+                            {{--<option></option>--}}
+                        {{--</select>--}}
                     </div>
 
                 </div>
@@ -195,11 +190,13 @@
                     <div class="q-form__input--wrapper">
                         <div class="q-datepicker__double">
                             <div class="q-datepicker">
-                                <input class="q-form__input js-q-datepicker">
+                                {{--<input class="q-form__input js-q-datepicker">--}}
+                                {!! Form::text('started_at', null, ['class' => 'q-form__input js-q-datepicker']) !!}
                             </div>
                             <div class="q-datepicker__divider">-</div>
                             <div class="q-datepicker">
-                                <input class="q-form__input js-q-datepicker">
+                                {{--<input class="q-form__input js-q-datepicker">--}}
+                                {!! Form::text('ended_at', null, ['class' => 'q-form__input js-q-datepicker']) !!}
                             </div>
                         </div>
                     </div>
@@ -208,15 +205,16 @@
                 <div class="q-form__row">
                     <label for="themeName" class="q-form__label">Заголовок задачи:</label>
                     <div class="q-form__input--wrapper">
-                        <input id="themeName" class="q-form__input">
-
+                        {{--<input id="themeName" class="q-form__input">--}}
+                        {!! Form::text('title', null, ['class' => 'q-form__input']) !!}
                     </div>
                 </div>
 
 
                 <div class="q-form__row">
                     <label for="textMessage" class="q-form__label">Описание задачи:</label>
-                    <textarea id="textMessage" class="q-form__textarea"></textarea>
+                    {{--<textarea id="textMessage" class="q-form__textarea"></textarea>--}}
+                    {!! Form::textarea('title', null, ['class' => 'q-form__textarea']) !!}
                 </div>
                 <div class="q-form__row _submit">
                     {!! Form::button('Добавить', ['type' => 'submit', 'class' => 'q-button _red']) !!}

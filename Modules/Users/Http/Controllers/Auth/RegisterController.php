@@ -39,18 +39,29 @@ class RegisterController extends Controller
         $this->userRepository = $userRepository;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return view('users::register');
     }
 
 
+    /**
+     * @param $data
+     * @return mixed
+     */
     protected function create($data)
     {
         return $this->userRepository->create($data);
     }
 
 
+    /**
+     * @param RegistrationRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(RegistrationRequest $request)
     {
         event(new Registered($user = $this->create($request->all())));

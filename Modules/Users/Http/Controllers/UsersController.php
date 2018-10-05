@@ -9,6 +9,8 @@ use Modules\Users\Repositories\UserRepository;
 class UsersController extends MainController
 {
 
+    protected $repo;
+
     public function __construct(UserRepository $repository)
     {
         parent::__construct($repository);
@@ -43,9 +45,6 @@ class UsersController extends MainController
 
         if ($request->get('type_edit') == 'full_name')
             $this->repo->editFullName($user, $request->get('full_name'));
-//        if ($request->get('type_edit') == 'avatar')
-//            $this->repo->editFullName($user, $request->get('full_name'));
-
 
     }
 

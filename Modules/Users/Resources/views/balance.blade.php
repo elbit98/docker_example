@@ -28,16 +28,18 @@
                     </div>
                 @endif
 
-                <form class="q-form g-no-projects">
+                    {!! Form::open(['method'=>'POST', 'route' => 'payment'], ['class' => 'q-form g-no-projects']) !!}
 
                     <div class="q-form__row">
-                    <input id="autorizationPassword" type="text" placeholder="" class="q-form__input q-form-white"/>
+                        {!! Form::text('summ', '0', ['class' => 'q-form__input q-form-white']) !!}
                     </div>
 
                     <div class="q-form__row _submit">
-                        <button class="q-button _red">Пополнить баланс</button>
+                        {!! Form::button('Пополнить баланс', ['type' => 'submit', 'class' => 'q-button _red']) !!}
                     </div>
-                </form>
+
+                {!! Form::close() !!}
+
             </div>
             <!-- end of content -->
 
